@@ -9,12 +9,17 @@ import requests, sys, datetime, json, random, logging
 class hero:
 
    def _getCredentials(self, username, password):
-      """
+      """ End-point discovery and Oauth token request.
+      Params:
+         username - for HER dashboard
+         password - for HER dashboard
+
+      Returns: hero object
       """
 
       # i'm guessing this numeric param is just to ensure no cacheing of the end-point info
       # for giggles made it a random int, probably not needed at all
-      params = {"x": random.randint(10000, 999999)}
+      params = { "x": random.randint(10000, 999999) }
       endpoint = self.her_host
 
       try:
@@ -22,12 +27,18 @@ class hero:
       except Exception as e:
          logging.critical(e)
          sys.exit(e)
-      else:
-         result = r.json()
+
+      if r.status_code != 200:
+         logging.critical(r)
+         sys.exit(r)
+
+      result = r.json()
 
       if 'fault' in result:
          logging.critical(result)
          sys.exit(result)
+
+      logging.debug(result)
 
       self.hero_api = result["heroApi"]
       form_data = { "grant_type": "password", 
@@ -42,12 +53,18 @@ class hero:
       except Exception as e:
          logging.critical(e)
          sys.exit(e)
-      else:
-         result = r.json()
+
+      if r.status_code != 200:
+         logging.critical(r)
+         sys.exit(r)
+
+      result = r.json()
 
       if 'errorResponse' in result:
          logging.critical(result)
          sys.exit(result)
+
+      logging.debug(result)
 
       # token lifetime is 30 mins.
       self.hero_api_token = result["access_token"]
@@ -63,8 +80,14 @@ class hero:
       except Exception as e:
          logging.critical(e)
          sys.exit(e)
-      else:
-         result = r.json()
+
+      if r.status_code != 200:
+         logging.critical(r)
+         sys.exit(r)
+
+      result = r.json()
+
+      logging.debug(result)
 
       if 'errorResponse' in result:
          logging.critical(result)
