@@ -20,7 +20,7 @@ The hero module includes:
     myenergy = myhero.getDailyUsage(datetime.date.today() - datetime.timedelta(days=2))
 
 ## Limitations
-It can take up to 48 hours for current data to become availalbe; hence the
+It can take up to 48 hours for current data to become available; hence the
 example usage above pulls the data from two days ago.
 
 ## Legal
