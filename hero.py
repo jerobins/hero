@@ -122,6 +122,30 @@ class hero:
 
       return result
 
+   def getCurrentUsageDetail(self, billCycleEndDate):
+      """
+      """
+
+      endpoint = self.hero_api + self.api_usage
+      params= { "accountId": self.hero_account_id,
+                "billCycleEndDate": billCycleEndDate.strftime("%Y-%m-%d") }
+      headers = { "Authorization": "Bearer " + self.hero_api_token }
+
+      try:
+         r = requests.get(endpoint, params=params, headers=headers)
+      except Exception as e:
+         logging.critical(e)
+         sys.exit(e)
+
+      if r.status_code != 200:
+         logging.critical(r)
+         result = {}
+      else:
+         result = r.json()
+         logging.debug(result)
+
+      return result
+
    def __init__(self, username, password):
       self.hero_api = ""
       self.hero_api_token = ""
@@ -130,5 +154,8 @@ class hero:
       self.her_host = "https://her.duke-energy.com/config/config.prod.json"
       self.api_account = "/user/accounts"
       self.api_dailydata = "/usage/comparison/daily/one-day"
+      self.api_usage = "/usage/detail"
+      self.billing_cycle = "/usage/latest-billing-cycle"
+
       self._getCredentials(username, password)
       return
