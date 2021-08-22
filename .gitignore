@@ -1,3 +1,9 @@
+# repo specific
+influxdb-current.py
+influxdb-import2date.py  
+test.py
+api.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
