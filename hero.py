@@ -155,7 +155,15 @@ class hero:
       self.api_account = "/user/accounts"
       self.api_dailydata = "/usage/comparison/daily/one-day"
       self.api_usage = "/usage/detail"
-      self.billing_cycle = "/usage/latest-billing-cycle"
+      self.api_billing_cycle = "/usage/latest-billing-cycle"
+      # to test
+      self.api_energy_profile = "/home-energy-profile" # hubAccountId
+      self.api_two_year_billing_cycle = "/usage/two-years-billing-cycle" # hubAccountId
+      self.api_card = "/card" # hubAccountId
+      self.api_cohort = "/cohort" # hubAccountId
+      self.api_account_id = "/user/account-id" # accountNumber
+      self.api_monthlydata = "/usage/comparison/daily/one-month" # hubAccountId, startDate, endDate, heroUsageCategoryEnum?
+      self.api_load = "/load/disaggregation" # hubAccountId, billCycleEndDate
 
       self._getCredentials(username, password)
       return
